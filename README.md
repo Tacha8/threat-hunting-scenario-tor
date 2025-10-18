@@ -135,7 +135,7 @@ DeviceNetworkEvents
 
  At 2025-10-15T22:02:21.738758Z, a network connection event: user achost on device vm-onboard-acha, with the initiating process tor.exe, successfully connected to remote IP 151.242.132.118 on port 9001.
 
- (Port 9001 is a known port commonly used by Tor clients/relays.
+ (Port 9001 is a known port commonly used by Tor clients/relays.)
 
 ---
 
