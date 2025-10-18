@@ -139,15 +139,19 @@ DeviceNetworkEvents
 
 ---
 
-## Summary
-
-User achost on device vm-onboard-acha installed and launched the portable version of the Tor Browser. After the installer launch, several “tor”-named files appeared on the desktop, including a file named tor-shopping-list.txt. Shortly thereafter, the process tor.exe was executed and connected to remote IP 151.242.132.118 on port 9001, a port commonly associated with the Tor network.
-
 Implications
 The usage of port 9001 is a well-known indicator of Tor network activity. 
 The fact that a portable version of Tor Browser was used may indicate an attempt to avoid installation artifacts or use a non-managed browser environment.
 The creation of a file named tor-shopping-list.txt and desktop file copies suggests manual user involvement rather than automated software distribution.
 Because Tor provides anonymity and can be used to circumvent monitoring controls, this usage may represent a policy violation or security concern depending on environment rules.
+
+
+---
+
+## Summary
+
+User achost on device vm-onboard-acha installed and launched the portable version of the Tor Browser. After the installer launch, several “tor”-named files appeared on the desktop, including a file named tor-shopping-list.txt. Shortly thereafter, the process tor.exe was executed and connected to remote IP 151.242.132.118 on port 9001, a port commonly associated with the Tor network.
+
 
 ---
 
