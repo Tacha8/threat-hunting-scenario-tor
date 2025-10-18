@@ -6,12 +6,12 @@
 2. Install it silently: ```tor-browser-windows-x86_64-portable-14.5.8.exe /S```
 3. Opens the TOR browser from the folder on the desktop
 4. Connect to TOR and browse a few sites. For example:
-   - **WARNING: The links to onion sites change a lot and these have changed. However if you connect to Tor and browse around normal sites a bit, the necessary logs should still be created:**
+   - **The links to onion sites change a lot and these may have changed.**
    - Current Dread Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion```
    - Dark Markets Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/d/DarkNetMarkets```
    - Current Elysium Market: ```elysiumutkwscnmdohj23gkcyp3ebrf4iio3sngc5tvcgyfp4nqqmwad.top/login```
 
-6. Create a folder on your desktop called ```tor-shopping-list.txt``` and put a few fake (illicit) items in there
+6. Created a folder on my desktop called ```tor-shopping-list.txt``` and put a few fake (illicit) items in there
 7. Delete the file.
 
 ---
@@ -39,33 +39,46 @@
 
 ## Related Queries:
 ```kql
-// Installer name == tor-browser-windows-x86_64-portable-(version).exe
+// Installer name == tor-browser-windows-x86_64-portable-14.5.8.exe
 // Detect the installer being downloaded
 DeviceFileEvents
-| where FileName startswith "tor"
+| where DeviceName == "vm-onboard-acha"
+| where InitiatingProcessAccountName == "achost"
+| where FileName contains "Tor"
+| where Timestamp >= datetime(2025-10-15T21:38:45.248943Z)
+| order by Timestamp desc
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
+
 
 // TOR Browser being silently installed
-// Take note of two spaces before the /S (I don't know why)
 DeviceProcessEvents
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe  /S"
-| project Timestamp, DeviceName, ActionType, FileName, ProcessCommandLine
+| where DeviceName == "vm-onboard-acha"
+| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.5.8.exe  /S"
+| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256,  ProcessCommandLine
+
 
 // TOR Browser or service was successfully installed and is present on the disk
-DeviceFileEvents
-| where FileName has_any ("tor.exe", "firefox.exe")
-| project  Timestamp, DeviceName, RequestAccountName, ActionType, InitiatingProcessCommandLine
+DeviceProcessEvents
+| where DeviceName == "vm-onboard-acha"
+| where FileName has_any ("tor.exe", "Browser", "tor-browser", “firefox.exe”)
+| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
+| order by Timestamp desc
+
 
 // TOR Browser or service was launched
 DeviceProcessEvents
-| where ProcessCommandLine has_any("tor.exe","firefox.exe")
-| project  Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
+| where DeviceName == "vm-onboard-acha"
+| where FileName has_any ("tor.exe", "Browser", "tor-browser", “firefox.exe”)
+| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
 
 // TOR Browser or service is being used and is actively creating network connections
 DeviceNetworkEvents
-| where InitiatingProcessFileName in~ ("tor.exe", "firefox.exe")
-| where RemotePort in (9001, 9030, 9040, 9050, 9051, 9150)
-| project Timestamp, DeviceName, InitiatingProcessAccountName, InitiatingProcessFileName, RemoteIP, RemotePort, RemoteUrl
+| where DeviceName == "vm-onboard-acha"
+| where InitiatingProcessAccountName != "system"
+| where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath
 | order by Timestamp desc
+
 
 // User shopping list was created and, changed, or deleted
 DeviceFileEvents
