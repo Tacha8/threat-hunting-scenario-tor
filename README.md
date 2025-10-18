@@ -139,7 +139,8 @@ DeviceNetworkEvents
 
 ---
 
-Implications
+## Implications
+
 The usage of port 9001 is a well-known indicator of Tor network activity. 
 The fact that a portable version of Tor Browser was used may indicate an attempt to avoid installation artifacts or use a non-managed browser environment.
 The creation of a file named tor-shopping-list.txt and desktop file copies suggests manual user involvement rather than automated software distribution.
