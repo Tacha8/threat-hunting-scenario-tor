@@ -107,27 +107,31 @@ DeviceNetworkEvents
 
 ## Chronological Event Timeline 
 
-Step 1 – Installer execution
+ Step 1 – Installer execution
 
  On 2025-10-15 at ~17:01:33 (local time), on device vm-onboard-acha, user achost launched the executable tor-browser-windows-x86_64-portable-14.5.8.exe. The full command line was simply the executable name.
 
  (This indicates the user initiated the portable version of Tor Browser.)
-Step 2 – File activities begin
+ 
+ Step 2 – File activities begin
 
  At 2025-10-15T21:38:45.248943Z, file events related to “tor” (files whose names include “Tor”) began appearing in the DeviceFileEvents table for user achost on vm-onboard-acha.
 
  (This marks the starting point of file system activity tied to Tor usage.)
-Step 3 – Desktop file creation & setup
+ 
+ Step 3 – Desktop file creation & setup
 
  By 2025-10-15T22:14:30.3912294Z, a file named tor-shopping-list.txt was created on the desktop, and numerous tor-related files were copied to the desktop by user achost.
 
  (This suggests the user staged or began using the Tor environment actively.)
-Step 4 – Tor browser/client launch
+ 
+ Step 4 – Tor browser/client launch
 
  At 2025-10-15T22:02:12.5405474Z, there is evidence in DeviceProcessEvents of processes such as tor.exe (and possibly firefox.exe in a Tor context) being executed by user achost on the device.
 
  (This is the point where the Tor client/browser appears to have been opened.)
-Step 5 – Network connection via Tor
+ 
+ Step 5 – Network connection via Tor
 
  At 2025-10-15T22:02:21.738758Z, a network connection event: user achost on device vm-onboard-acha, with the initiating process tor.exe, successfully connected to remote IP 151.242.132.118 on port 9001.
 
